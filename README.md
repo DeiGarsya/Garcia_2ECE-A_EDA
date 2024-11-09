@@ -181,5 +181,56 @@ Where the output will be:
 
 ---
 ### Genre and Music Characteristics
+For this part we need to examine correlations of streams, bpm,  danceability_%, energy_%, valence_%, and acousticness_%.  
+First we need to create a table that shows the correlation of each of the columns stated above.  
+This can be done by using the function "df[["columns"]].corr()" where .corr() initiates getting the correlation.  
+``` python
+correl = main[['streams', 'bpm', 'danceability_%', 'energy_%', 'valence_%', 'acousticness_%']].corr()
+correl
+```
 
+Where the output is:  
+![image](https://github.com/user-attachments/assets/5cc9fd4a-685f-4985-b404-b8f712d2aac0)
 
+<br/>
+
+With the table now made, we can now plot the data on a graph appropriatly a heatmap.  
+<br/>
+This can be done using the function "plt.imshow()" which creates a table with a square that represents each element of the table.  
+The parameter "cmap='coolwarm'", changes the color of the squares where the more red a square is, the higher correlation each element has.  
+
+``` python
+plt.imshow(correl, cmap='coolwarm')
+plt.xticks(range(len(correl.columns)),correl.columns, rotation=90) 
+plt.yticks(range(len(correl.columns)), correl.columns)
+```
+
+Where the output is:  
+![image](https://github.com/user-attachments/assets/9d7a19f9-f704-48c9-a9dd-5a7c096af4eb) 
+
+<br/>
+
+We also now need to get the correlation between danceability_% and energy_%, and valence_% and acousticness_%.  
+This can be done just by indexing the table we first created holding the correlations between all the elements.  
+
+``` python
+correl_dance_energy = correl.loc['danceability_%', 'energy_%']
+print("The correlation of danceablity and energy:", correl_dance_energy)
+```
+
+Where the output is:  
+![image](https://github.com/user-attachments/assets/3a6717e0-3f1b-49e5-a9f3-a2c52056e546)
+
+``` python
+correl_valence_acousticness = correl.loc['valence_%', 'acousticness_%']
+print("The correlation of valence and acousticness:", correl_valence_acousticness)
+```
+
+Where the output is:  
+![image](https://github.com/user-attachments/assets/a45546ea-5db7-4c64-9c97-de0ea052c776)  
+
+<br/>
+
+---
+
+###  Platform Popularity
