@@ -234,3 +234,59 @@ Where the output is:
 ---
 
 ###  Platform Popularity
+For this part, we need to compare the number of tracks on the platforms; spotify_playlists, deezer_playlists, and apple_playlists.  
+First, we need to address an issue in the column "in_deezer_playlists". Without the line "main['in_deezer_playlists'] = pd.to_numeric(main['in_deezer_playlists'], errors='coerce')", the sum of tracks would result to a extremly large number.  
+<br/>
+With that out of the way,  we now need to create a dataframe which contains the total number of tracks in that specific column.  
+Here I first created a dictionary with the key as the column name and the value with the sum of its respective row.  
+``` python
+main['in_deezer_playlists'] = pd.to_numeric(main['in_deezer_playlists'], errors='coerce')
+platform_count = { 'Spotify playlist': main['in_spotify_playlists'].sum(), 
+                   'Deezer playlist': main['in_deezer_playlists'].sum(),
+                   'Apple playlist': main['in_apple_playlists'].sum()}
+```
+
+With the dictionary made, we can now transform the dictionary into a dataframe using the function "pd.DataFrame()". The first parameter indicates the data, the dictionary, to be used and placed in the data frame, the second parameter labels the columns of the data frame respectively.
+
+``` python
+platform_count = pd.DataFrame(platform_count.items(), columns = ['platform', 'Number of tracks'])
+```
+
+With the dataframe created, we can now move on to plotting the dataframe with matplotlib.  
+We can use the function "plt.bar()" with the column "platform" on the x axis and the column "Number of tracks" on the y axis.  
+Then label the graph properly with the functions "plt.xlabel()", "plt.ylabel", and "plt.title".
+``` python
+plt.figure(figsize=(14, 5))
+plt.bar(platform_count['platform'], platform_count['Number of tracks'], color='hotpink', edgecolor='magenta')
+plt.title('Number of tracks of each Platform')
+plt.ylabel('Number of tracks')
+plt.xlabel('\nPlatform name')
+plt.show()
+```
+
+Where the output is:  
+![image](https://github.com/user-attachments/assets/fe403e46-615c-485b-a5a1-a1c2b8edf67d)
+
+---
+
+### Advanced Analysis
+For the first part, we need to get the total number of streams of the same key and mode.
+``` python
+strms_by_key = main.groupby('key')['streams'].sum().sort_values(ascending=False).reset_index()
+strms_by_key.columns = ['Key', 'Average Streams']
+plt.figure(figsize=(14, 5))
+plt.bar(strms_by_key['Key'], strms_by_key['Average Streams'], color='hotpink', edgecolor='magenta')
+plt.title('Number of streams by key')
+plt.ylabel('Number of streams')
+plt.xlabel('\nKey')
+```
+
+``` python
+strms_by_mode = main.groupby('mode')['streams'].sum().reset_index()
+strms_by_mode.columns = ['Mode', 'Average Streams']
+plt.figure(figsize=(14, 5))
+plt.bar(strms_by_mode['Mode'], strms_by_mode['Average Streams'], color='hotpink', edgecolor='magenta')
+plt.title('Streams by mode')
+plt.ylabel('Number of streams')
+plt.xlabel('\nMode')
+```
