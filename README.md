@@ -280,6 +280,9 @@ plt.title('Number of streams by key')
 plt.ylabel('Number of streams')
 plt.xlabel('\nKey')
 ```
+Where the output is:  
+![image](https://github.com/user-attachments/assets/a8852b5e-e811-4d96-ad7c-01f7db17364e)
+
 
 ``` python
 strms_by_mode = main.groupby('mode')['streams'].sum().reset_index()
@@ -290,3 +293,42 @@ plt.title('Streams by mode')
 plt.ylabel('Number of streams')
 plt.xlabel('\nMode')
 ```
+Where the output is:  
+![image](https://github.com/user-attachments/assets/29606883-8f6a-4e2a-81a0-a80109060bdd)
+
+<br/>
+<br/>
+
+For the second part we need to display the top 10 artist the appear the most frequently in the playlists and charts respectively.  
+
+``` python
+main['total_playlist'] = main['in_spotify_playlists'] + main['in_apple_playlists'] + main['in_deezer_playlists']
+main['total_chart'] = main['in_spotify_charts'] + main['in_apple_charts'] + main['in_deezer_charts']
+artist_analysis = main.groupby('artist(s)_name')[['total_playlist', 'total_chart']].sum().reset_index()
+artist_analysis = artist_analysis.sort_values(by=['total_playlist', 'total_chart'], ascending=False)
+top_10_artists = artist_analysis.head(10)
+plt.figure(figsize=(16, 5))
+plt.bar(top_10_artists['artist(s)_name'], top_10_artists['total_playlist'], label='Playlist Appearances', color='hotpink',edgecolor='magenta')
+plt.title('Top 10 Artists that appear in playlists')
+plt.ylabel('Number of appearances')
+plt.xlabel('Artist')
+plt.show()
+```
+Where the output is:  
+![image](https://github.com/user-attachments/assets/bca1d1df-07a8-4aff-98bc-964748e84665)
+
+
+``` python
+plt.figure(figsize=(14, 5))
+plt.bar(top_10_artists['artist(s)_name'], top_10_artists['total_chart'], label='Chart Appearances',color='hotpink',edgecolor='magenta')
+plt.title('Top 10 Artists that appear most in charts')
+plt.ylabel('Number of appearances')
+plt.xlabel('Artist')
+plt.show()
+```
+Where the output is:  
+![image](https://github.com/user-attachments/assets/59360a53-a3df-48f8-9e18-ad7cf861ae05)
+
+---
+## [History / Commits](https://github.com/DeiGarsya/Garcia_2ECE-A_EDA/commits/main/)
+
