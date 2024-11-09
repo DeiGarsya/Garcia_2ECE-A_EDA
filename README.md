@@ -52,7 +52,7 @@ Where the output will be:
 ![image](https://github.com/user-attachments/assets/c2aef997-1c77-4444-a8b4-8b9504cd1a06)  
 
 ---
-## Basic Descriptive Stats
+### Basic Descriptive Stats
 The goal is to obtain the Mean, Median, and Standard Deviation of the column "streams" but since the datatype of the column "stream" is object, we first need to convert it into a numerical dtype.  
 This can be achieved using the function "pd.to_numeric"
 ``` python
@@ -98,4 +98,44 @@ plt.ylabel("Frequency")
 plt.show()
 ```
 Where the output will be:  
-![image](https://github.com/user-attachments/assets/2d892893-d73f-4756-9163-b3773d8aa77d)
+![image](https://github.com/user-attachments/assets/2d892893-d73f-4756-9163-b3773d8aa77d)  
+
+---
+### Top Performers
+The first goal of this part is to present the track with the most streams and display the top 5 streamed tracks.  
+To obtain the track with the highest amount of streams, we can use the function "df.nlargest()".  
+in the line "(1,'streams')", 1 indicates the number of rows to be obtained. Where "streams" is the column to be evaluated.  
+The parameter in the double brackets are the columns in which are to be kept and saved to the variable.
+``` python
+top_stream = main.nlargest(1,'streams')[['track_name', 'artist(s)_name', 'streams']]
+top_stream
+```
+Where the output is:  
+![image](https://github.com/user-attachments/assets/94002462-680c-455c-8c7a-0a717d5afe9e)
+
+``` python
+top5_streams = main.nlargest(5,'streams')[['track_name', 'artist(s)_name', 'streams']]
+top5_streams
+```
+Where the output is:  
+![image](https://github.com/user-attachments/assets/0c5ab0c1-404e-4cc5-b3e2-d236b0729fe8)
+<br/>
+<br/>
+The other goal of this part is to find and display the top 5 artists that appear the most based on the number of tracks they have in the dataset.
+This time we need to evaluate the column "artist(s)_name" and display the top 5 artists that appear the most.
+To count the number of times each artist appears, we can us the function "df.value_counts()".   
+Similarly to the previous question, we can get the top 5 values of the column using the "df.nlargest(5)" function.  
+To reset the index on the side, we can use the function "df.reset_index()"
+``` python
+top5_most_artist = main['artist(s)_name'].value_counts().nlargest(5).reset_index()
+top5_most_artist
+```
+Where the output is:  
+![image](https://github.com/user-attachments/assets/1ca1e810-25eb-4f6c-a41e-4f12be6fd674)
+
+</br>
+</br>
+
+---
+### Temporal Trends
+
