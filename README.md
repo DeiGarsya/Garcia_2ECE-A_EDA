@@ -110,14 +110,14 @@ The parameter in the double brackets are the columns in which are to be kept and
 top_stream = main.nlargest(1,'streams')[['track_name', 'artist(s)_name', 'streams']]
 top_stream
 ```
-Where the output is:  
+Where the output will be:  
 ![image](https://github.com/user-attachments/assets/94002462-680c-455c-8c7a-0a717d5afe9e)
 
 ``` python
 top5_streams = main.nlargest(5,'streams')[['track_name', 'artist(s)_name', 'streams']]
 top5_streams
 ```
-Where the output is:  
+Where the output will be:  
 ![image](https://github.com/user-attachments/assets/0c5ab0c1-404e-4cc5-b3e2-d236b0729fe8)
 <br/>
 <br/>
@@ -130,12 +130,56 @@ To reset the index on the side, we can use the function "df.reset_index()"
 top5_most_artist = main['artist(s)_name'].value_counts().nlargest(5).reset_index()
 top5_most_artist
 ```
-Where the output is:  
+Where the output will be:  
 ![image](https://github.com/user-attachments/assets/1ca1e810-25eb-4f6c-a41e-4f12be6fd674)
 
-</br>
-</br>
+<br/>
 
 ---
 ### Temporal Trends
+The first goal in this part is to plot the number of tracks released per year.  
+This time, the column "released_year" is the coulmn to be evaluated.  
+<br/>
+The first step we need to do is to count the numbers of time a year appears in the column "released_year". This can be done with the function "df.calue_counts()" where it counts the amount of times an element appears within its parameters where in this case "released_year".  
+<br/>
+Next we need to sort the years by increasing. We can do this with the function "sort_index()".  
+<br/>
+With this, we can now visualize the data using the function "plt.plot()" and to make it into a bar graph, we can use the parameter "kind='bar'".
+<br/>
+Now we need to label the graph properly. We can change the title using "plt.title()", the x axis label using "plt.xlabel()", and the y axis label with "plt.ylabel()".
+``` python
+plt.figure(figsize=(14, 5))
+main['released_year'].value_counts().sort_index().plot(kind='bar', color='hotpink', edgecolor='darkmagenta')
+plt.title('Number of songs released per year')
+plt.xlabel('Year')
+plt.ylabel('Number of songs')
+plt.show()
+```
+Where the output will be:  
+![image](https://github.com/user-attachments/assets/ce36b13f-7a67-4f9f-84af-b97f90751a40)
+
+<br/>
+The next goal of this part is to display the amount of tracks released per month and which month has the most releases  
+<br/>
+This part is similar to the last part we did except this time, the column to be evaluated is "released_month".  
+<br/>
+Also this time, we need to sort the values inside the column so that we can project the month with the most releases to the least releases.  
+This can be achieved with the function ".sort_values()" instead of the function ".sort_index()".
+
+``` python
+plt.figure(figsize=(14, 5))
+main['released_month'].value_counts().sort_values(ascending=False).plot(kind='bar', color='hotpink', edgecolor='darkmagenta')
+plt.title('Number of songs released per month')
+plt.xlabel('Number of the Month')
+plt.ylabel('Number of songs')
+plt.show()
+```
+Where the output will be:  
+![image](https://github.com/user-attachments/assets/7403c6c2-345f-4291-a95f-0fdb5d6fb773)
+
+<br/>
+
+---
+### Genre and Music Characteristics
+
 
