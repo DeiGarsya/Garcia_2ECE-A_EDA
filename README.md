@@ -73,3 +73,29 @@ print("Standard deviation of values in the column streams:", streams_std)
 ```
 Where the output will be:  
 ![image](https://github.com/user-attachments/assets/a8e5b6f8-71d2-4e6d-b80c-dd4e2d5e4498)
+
+The other goal of this part is to obtain the distribution of released_year and artist_count.
+This can be achieved using the "df.plot.hist" function which purpose is to plot distributions of data.  
+Distribution of Released Year:
+``` python
+plt.figure(figsize=(14, 5))
+main['released_year'].plot.hist(color='hotpink', edgecolor='magenta')
+plt.title("Distribution of Released Year")
+plt.xlabel("Released Year")
+plt.ylabel("Frequency")
+plt.show()
+```
+Where the output will be:  
+![image](https://github.com/user-attachments/assets/03b32c14-daa5-42d0-ae69-f56fc1f0acbf)
+
+Distribution of Artist Count:
+``` python
+plt.figure(figsize=(14, 5))
+main['artist_count'].plot.hist(color='hotpink', edgecolor='magenta')
+plt.title("Distribution of Artist Count")
+plt.xlabel("Artist Count")
+plt.ylabel("Frequency")
+plt.show()
+```
+Where the output will be:  
+![image](https://github.com/user-attachments/assets/2d892893-d73f-4756-9163-b3773d8aa77d)
